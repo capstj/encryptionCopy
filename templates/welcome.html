@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0c051a;
+    }
+
+    .container {
+      width: 350px;
+      margin: 0 auto;
+      margin-top: 100px;
+      padding: 20px;
+      border: 1px solid #fffff;
+      border-radius: 10px;
+      background-color: #2e2b33;
+    }
+
+    h1, h2, h3, h4 {
+      text-align: center;
+      color: white;
+    }
+
+    h1 { color: #f7584d; }
+    h2 { color: #516cf0; }
+
+    .form-group {
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: white;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #1b191f;
+      border-radius: 5px;
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #458cff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #8ac6ff;
+    }
+
+    .menu-icon {
+      position: absolute;
+      top: 10px;
+      right: 0px;
+      left: 10px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .menu {
+      position: absolute;
+      top: 40px;
+      left: 10px;
+      background-color: #2e2b33;
+      border: 1px solid #fffff;
+      border-radius: 5px;
+      padding: 15px;
+      display: none;
+    }
+
+    .menu a {
+      display: block;
+      padding: 15px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .menu a:hover {
+      background-color: #458cff;
+    }
+
+    .file-list {
+      border-radius: 5px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .file-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      padding: 5px;
+    }
+
+    .file-list li:hover {
+      border-color: #fff;
+    }
+
+    .file-list li a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s ease-in-out;
+      margin-left: 10px;
+    }
+
+    .file-list li a:hover {
+      opacity: 1;
+    }
+
+    .file-name {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .file-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .file-actions .action {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>DRIVE</h1>
+  <h2></h2>
+  <h4>username: {{ username }}</h4>
+  <div class="form-group">
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <div>
+        <input type="file" name="file">
+      </div>
+      <p></p>
+      <div>
+        <input type="submit" value="Upload">
+      </div>
+    </form>
+  </div>
+  <div class="form-group">
+    <h2>Uploaded Files</h2>
+    <ul class="file-list">
+      {% for file in files %}
+      <li>
+        <div class="file-name">
+          <a href="/download/{{file}}">{{ file }}</a>
+        </div>
+        <div class="file-actions">
+          <a href="/download?filename={{ file }}" class="action"><i class="fas fa-download"></i></a>
+          <a href="/delete?filename={{ file }}" class="action"><i class="fas fa-trash-alt"></i></a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+      &#9776;
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+    <a href="/user-profile">User Profile</a>
+    <a href="/about-us">About us</a>
+    <a href="/feedback">feedback</a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById("menu");
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
+      }
+    }
+  </script>
+</div>
+</body>
+</html>
+

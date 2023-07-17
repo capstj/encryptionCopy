@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OTP Verification</title>
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
+
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+       background-color:#0c051a
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: #2e2b33;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      text-align: center;
+      color: white
+    }
+    h1 { color: #f7584d; }
+    h2 { color: #516cf0; }
+
+    form {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #458cff;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color:  #8ac6ff;
+    }
+    .form-group label {
+     display: block;
+     font-weight: bold;
+     color : white
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>OTP Verification</h1>
+    {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+    {% endif %}
+    <form method="POST" action="/signup_process/otp/verify" class="form-group">
+      <label for="otp" >enter OTP</label>
+      <input type="text" name="otp" id="otp" placeholder="Enter OTP" required>
+      <button type="submit">Verify</button>
+    </form>
+
+    <form class="form-group" action="/signup_process/otp/resend" method="POST">
+      <label for="resend" >Didn't receive the OTP</label>
+      <button type="submit" id="resend">Resend OTP</button>
+    </form>
+    {% if expiry_time %}
+    <p class="error" >OTP will expire in {{ expiry_time }} seconds.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

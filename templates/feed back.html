@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Page</title>
+</head>
+<body>
+    <h1>Feedback Form</h1>
+    <form action="/submit_feedback" method="POST">
+        <label for="score">score:</label>
+        <select name ="score" id ="score" required>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+        <br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea name="message" id="message" rows="5" cols="30" required></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

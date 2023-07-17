@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+       background-color:#0c051a
+
+    }
+    .select{
+      border: 1px solid #fffff;
+      border-radius: 5px;
+      outline-width: 0;
+    }
+    .container {
+      width: 350px;
+      margin: 0 auto;
+      margin-top : 20px;
+      padding: 20px;
+      border: 1px solid #fffff;
+      border-radius: 10px;
+      background-color: #2e2b33;
+    }
+    .error-message{
+      color: red;
+    }
+    h2 {
+      text-align: center;
+      color: #757feb;
+    }
+    h3 {
+      text-align: center;
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .form-group label {
+     display: block;
+     font-weight: bold;
+     color : white;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #1b191f;
+      border-radius: 10px;
+      outline-width: 0;
+
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #458cff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form action='/signup_process' method="POST">
+      <div class="form-group">
+        <label for="name">name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+        <span id="username-error" class="error-message"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <span id="password-error" class="error-message"></span>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">confirm password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+        <span id="confirm-password-error" class="error-message"></span>
+      </div>
+      <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" class="select">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      </div>
+      <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Sign Up">
+      </div>
+    </form>
+   <script>
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const usernameError = document.getElementById('username-error');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+
+    usernameInput.addEventListener('input', validateUsername);
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+    function validateUsername() {
+      const username = usernameInput.value;
+      const isValid = isUsernameValid(username);
+
+      if (isValid) {
+        usernameError.textContent = '';
+      } else {
+        usernameError.textContent = 'Username is invalid. Please try a different one.';
+      }
+    }
+
+    function validatePassword() {
+      const password = passwordInput.value;
+      const isValid = isPasswordValid(password);
+
+      if (isValid) {
+        passwordError.textContent = '';
+      } else {
+        passwordError.textContent = 'Password is invalid.\n it must be of length 5 to 15 with at least one uppercase, lower case, number and special character';
+      }
+    }
+
+    function validateConfirmPassword() {
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+      const isValid = isConfirmPasswordValid(password, confirmPassword);
+
+      if (isValid) {
+        confirmPasswordError.textContent = '';
+      } else {
+        confirmPasswordError.textContent = 'Passwords do not match.';
+      }
+    }
+
+    function isUsernameValid(username) {
+      // Add your username validation logic here
+      // Example validation: Username must not be empty and should not exceed 20 characters
+      if (username.length > 0 && username.length <= 20) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function isPasswordValid(password) {
+      // Add your password validation logic here
+      // Example validation: Password must have at least 8 characters, maximum 15 characters, and contain at least one uppercase letter, one lowercase letter, one digit, and one special character
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&])[A-Za-z\d@#$%&]{8,15}$/;
+      return regex.test(password);
+    }
+
+    function isConfirmPasswordValid(password, confirmPassword) {
+      // Add your confirm password validation logic here
+      // Example validation: Confirm password must match the password field
+      return password === confirmPassword;
+    }
+  </script>
+  </div>
+
+</body>
+</html>
